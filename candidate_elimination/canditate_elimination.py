@@ -1,39 +1,37 @@
-import numpy as np
 import pandas as pd
 
-data = pd.DataFrame(data=pd.read_csv('./tennis_data.csv'))
-concepts = np.array(data.iloc[:,0:-1])
-target = np.array(data.iloc[:,-1])
+# Read the CSV file
+data = pd.read_csv('./enjoysport.csv')
+concepts = data.iloc[:, :-1].values
+target = data.iloc[:, -1].values
 
-def learn(concepts, target):
-    specific_h = concepts[0].copy()
+# Initialize specific and general hypotheses
+specific_h = concepts[0].copy()
+general_h = [['?' for _ in range(len(specific_h))] for _ in range(len(specific_h))]
 
-    print("initialization of specific_h and general_h")
-    print(specific_h)
-    general_h = [["?" for i in range(len(specific_h))] for i in range(len(specific_h))]
-    print(general_h)
-    for i, h in enumerate(concepts):
-        if target[i] == "Yes":
+
+def learn(concepts, target, specific_h, general_h):
+    for i, concept in enumerate(concepts):
+        if target[i] == "yes":
             for x in range(len(specific_h)):
-                if h[x] != specific_h[x]:
+                if concept[x] != specific_h[x]:
                     specific_h[x] = '?'
                     general_h[x][x] = '?'
-        if target[i] == "No":
+        elif target[i] == "no":
             for x in range(len(specific_h)):
-                if h[x] != specific_h[x]:
+                if concept[x] != specific_h[x]:
                     general_h[x][x] = specific_h[x]
                 else:
                     general_h[x][x] = '?'
-        print(" steps of Candidate Elimination Algorithm",i+1)
-        print("Specific_h ",i+1,"\n ")
-        print(specific_h)
-        print("general_h ", i+1, "\n ")
-        print(general_h)
-        indices = [i for i, val in enumerate(general_h) if val == ['?', '?', '?', '?', '?', '?']]
-        for i in sorted(indices):
-            general_h.remove(['?', '?', '?', '?', '?', '?'])
+        print(f"\nAfter instance {i + 1}:\nSpecific Hypothesis: {specific_h}\nGeneral Hypothesis: {general_h}")
+
+    # Remove overly general hypotheses in G
+    general_h = [g for g in general_h if g != ['?' for _ in range(len(specific_h))]]
     return specific_h, general_h
 
-s_final, g_final = learn(concepts, target)
-print("Final Specific_h:", s_final, sep="\n")
-print("Final General_h:", g_final, sep="\n")
+
+# Run the learning algorithm
+s_final, g_final = learn(concepts, target, specific_h, general_h)
+
+print("\nThe Final Specific Hypothesis:", s_final)
+print("\nThe Final General Hypotheses:", g_final)

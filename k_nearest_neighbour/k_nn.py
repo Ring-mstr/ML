@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 import pandas as pd
-dataset=pd.read_csv(r"machine _learning_lab/k_nearest_neighbour/Iris.csv")
+dataset=pd.read_csv(r"./Iris.csv")
 dataset.dropna(inplace=True)
 X=dataset[["SepalLengthCm","SepalWidthCm","PetalLengthCm","PetalWidthCm"]]
 y=dataset["Species"]

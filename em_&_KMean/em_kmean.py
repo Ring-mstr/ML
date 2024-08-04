@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.mixture import GaussianMixture
 import pandas as pd
 
-X=pd.read_csv(r"machine _learning_lab/em_&_KMean/kmeansdata.csv")
+X=pd.read_csv(r"./kmeansdata.csv")
 x1 = X['x'].values
 x2 = X['y'].values
 X = np.array(list(zip(x1, x2))).reshape(len(x1), 2)

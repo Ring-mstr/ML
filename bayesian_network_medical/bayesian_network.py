@@ -5,7 +5,7 @@ from pgmpy.estimators import MaximumLikelihoodEstimator
 from pgmpy.models import BayesianModel
 from pgmpy.inference import VariableElimination
 #read Cleveland Heart Disease data
-heartDisease = pd.read_csv(r'machine _learning_lab/bayesian_network_medical/heart.csv')
+heartDisease = pd.read_csv(r'./heart.csv')
 heartDisease = heartDisease.replace('?',np.nan)
 #display the data
 print('Sample instances from the dataset are given below')
