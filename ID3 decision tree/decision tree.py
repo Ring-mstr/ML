@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 
 # Load the dataset
-df = pd.read_csv('tennis.csv')
+df = pd.read_csv('./decisiontree_dataset.csv')
 
 # Convert categorical variables to numerical values
 le = LabelEncoder()
